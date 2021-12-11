@@ -50,6 +50,11 @@ class Book
     private $filePath;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $imgPath;
+
+    /**
      * @ORM\Column(type="bigint")
      */
     private $pageCount;
@@ -127,6 +132,18 @@ class Book
     public function setFilePath(string $filePath): self
     {
         $this->filePath = $filePath;
+
+        return $this;
+    }
+
+    public function getImgPath(): ?string
+    {
+        return $this->imgPath;
+    }
+
+    public function setImgPath(string $imgPath): self
+    {
+        $this->imgPath = $imgPath;
 
         return $this;
     }

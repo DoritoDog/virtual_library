@@ -33,7 +33,14 @@ class BookController extends AbstractController
      */
     public function getBooks(): JsonResponse
     {
-        return $this->json($this->bookRepository->findAll());
+        $response = $this->json($this->bookRepository->findAll());
+        $response->headers->add([
+                'content-type' => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With,content-type'
+        ]);
+        return $response;
     }
 
     /**
@@ -68,7 +75,15 @@ class BookController extends AbstractController
     {
         $categoryId = $this->categoryRepository->findBy(['slug' => \strtolower($categorySlug)]);
         $books = $this->bookRepository->findBy(['category' => $categoryId]);
-        return $this->json($books);
+        
+        $response = $this->json($books);
+        $response->headers->add([
+                'content-type' => 'application/json',
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+                'Access-Control-Allow-Headers' => 'X-Requested-With,content-type'
+        ]);
+        return $response;
     }
 
     /**

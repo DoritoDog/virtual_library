@@ -48,6 +48,7 @@
         let a = document.createElement('a');
         a.classList = 'nav-link';
         a.innerHTML = category['name'];
+        a.href = window.location.pathname + '?category=' + category.slug;
         li.appendChild(a);
         document.getElementById('categories').appendChild(li);
       });
@@ -68,7 +69,10 @@
         document.getElementById('row').appendChild(column);
       });
     }
-    xhttp.open("GET", "http://localhost:8000/books", true);
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    xhttp.open("GET", "http://localhost:8000/books/category/" + urlParams.get('category'), true);
     xhttp.send();
   }
 

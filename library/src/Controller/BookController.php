@@ -33,14 +33,7 @@ class BookController extends AbstractController
      */
     public function getBooks(): JsonResponse
     {
-        $response = $this->json($this->bookRepository->findAll());
-        $response->headers->add([
-                'content-type' => 'application/json',
-                'Access-Control-Allow-Origin' => '*',
-                'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-                'Access-Control-Allow-Headers' => 'X-Requested-With,content-type'
-        ]);
-        return $response;
+        return $this->json($this->bookRepository->findAll());
     }
 
     /**
@@ -49,6 +42,14 @@ class BookController extends AbstractController
     public function getBook($bookId): Response
     {
         return $this->json($this->bookRepository->find($bookId));
+    }
+
+    /**
+     * @Route("/search-books", name="search-books-by-name", methods="GET")
+     */
+    public function searchBooksByName(Request $request): Response
+    {
+        return $this->json($this->bookRepository->findByTitleWildcard($request->query->get('title')));
     }
 
     /**
@@ -76,14 +77,7 @@ class BookController extends AbstractController
         $categoryId = $this->categoryRepository->findBy(['slug' => \strtolower($categorySlug)]);
         $books = $this->bookRepository->findBy(['category' => $categoryId]);
         
-        $response = $this->json($books);
-        $response->headers->add([
-                'content-type' => 'application/json',
-                'Access-Control-Allow-Origin' => '*',
-                'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-                'Access-Control-Allow-Headers' => 'X-Requested-With,content-type'
-        ]);
-        return $response;
+        return $this->json($books);
     }
 
     /**
@@ -91,14 +85,7 @@ class BookController extends AbstractController
      */
     public function getCategories(): Response
     {
-        $response = $this->json($this->categoryRepository->findAll());
-        $response->headers->add([
-                'content-type' => 'application/json',
-                'Access-Control-Allow-Origin' => '*',
-                'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-                'Access-Control-Allow-Headers' => 'X-Requested-With,content-type'
-        ]);
-        return $response;
+        return $this->json($this->categoryRepository->findAll());
     }
 
     /**

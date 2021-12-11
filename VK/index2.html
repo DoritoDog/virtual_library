@@ -29,8 +29,8 @@
         </li>
       </ul>
       <form class="d-flex">
-        <input class="form-control me-2" type="text" placeholder="zadaj názov knihy...">
-        <button class="btn btn-primary" type="button">Hľadať</button>
+        <input class="form-control me-2" id="book-search" type="text" placeholder="zadaj názov knihy...">
+        <button class="btn btn-primary" type="button" onclick="searchBooks()">Hľadať</button>
       </form>
     </div>
   </div>
@@ -65,14 +65,32 @@
       books.forEach(book => {
         let column = document.createElement('div');
         column.classList = 'c_column';
-        column.innerHTML = '<div class="c_card"><div class="thumbnail"><a href="Pocitacova_grafika/pdf/Vektorova_a_bitmapova_grafika.pdf"><img  src="Pocitacova_grafika/obrazky/vector_bitmap.jpg" alt="Vektorová a bitmapová grafika" style="width:100%"></a></div><div class="c_container"><h6 class="txt">'+book['title']+'</h6><p class="txt">Existujú dve úplne odlišné metódy ukladania obrazu v počítačovej grafike... </p><p><input type="submit" class="button" value="Študuj"onclick="window.open(\'C:\\\\Users\\\\NTB\\\\Desktop\\\\Virtuálna knižnica\\\\Vektorova_a_bitmapova_grafika.pdf\'); return true;"><button class="btn"><i class="fa fa-edit"></i></button></p></div></div>';
+        column.innerHTML = '<div class="c_card"><div class="thumbnail"><a href="'+book['filePath']+'"><img  src="'+book['imgPath']+'" alt="Vektorová a bitmapová grafika" style="width:100%"></a></div><div class="c_container"><h6 class="txt">'+book['title']+'</h6><p class="txt">Existujú dve úplne odlišné metódy ukladania obrazu v počítačovej grafike... </p><p><input type="submit" class="button" value="Študuj"onclick="window.open(\''+book['filePath']+'\'); return true;"><button class="btn"><i class="fa fa-edit"></i></button></p></div></div>';
         document.getElementById('row').appendChild(column);
       });
     }
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    xhttp.open("GET", "http://localhost:8000/books/category/" + urlParams.get('category'), true);
+    let url = urlParams.get('category') !== null ? ("http://localhost:8000/books/category/" + urlParams.get('category')) : "http://localhost:8000/books";
+    xhttp.open("GET", url, true);
+    xhttp.send();
+  }
+
+  function searchBooks() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+      let books = JSON.parse(this.responseText);
+      document.getElementById('row').innerHTML = '';
+      books.forEach(book => {
+        let column = document.createElement('div');
+        column.classList = 'c_column';
+        column.innerHTML = '<div class="c_card"><div class="thumbnail"><a href="'+book['filePath']+'"><img  src="'+book['imgPath']+'" alt="Vektorová a bitmapová grafika" style="width:100%"></a></div><div class="c_container"><h6 class="txt">'+book['title']+'</h6><p class="txt">Existujú dve úplne odlišné metódy ukladania obrazu v počítačovej grafike... </p><p><input type="submit" class="button" value="Študuj"onclick="window.open(\''+book['filePath']+'\'); return true;"><button class="btn"><i class="fa fa-edit"></i></button></p></div></div>';
+        document.getElementById('row').appendChild(column);
+      });
+    }
+
+    xhttp.open("GET", "http://localhost:8000/search-books?title=" + document.getElementById('book-search').value, true);
     xhttp.send();
   }
 

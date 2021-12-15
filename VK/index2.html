@@ -48,7 +48,7 @@
         let a = document.createElement('a');
         a.classList = 'nav-link';
         a.innerHTML = category['name'];
-        a.href = window.location.pathname + '?category=' + category.slug;
+        a.href = 'index2.html?category=' + category.slug;
         li.appendChild(a);
         document.getElementById('categories').appendChild(li);
       });

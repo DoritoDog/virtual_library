@@ -23,22 +23,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="mynavbar">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="index2.html">Počítačová grafika</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="index3.html">Operačné systémy</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="index4.html">Počítačová analýza dát</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="index5.html">Databázové systémy</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="index6.html">Multimédiá</a>
-        </li>
+      <ul class="navbar-nav me-auto" id="categories">
       </ul>
       <ul class="navbar-nav justify-content-end">
         <li class="nav-item">
@@ -54,12 +39,39 @@
 </nav>
 <br>
 
+<script>
+window.onload = () => {
+  let form = document.getElementById('form');
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  form.action = "http://127.0.0.1:8000/books/" + urlParams.get('bookId');
+
+  createCategoryLinks();
+}
+
+function createCategoryLinks() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+      let categories = JSON.parse(this.responseText);
+      document.getElementById('categories').innerHTML = '';
+      categories.forEach(category => {
+        let li = document.createElement('li');
+        li.classList = 'nav-item';
+        let a = document.createElement('a');
+        a.classList = 'nav-link';
+        a.innerHTML = category['name'];
+        a.href = 'index2.html?category=' + category.slug;
+        li.appendChild(a);
+        document.getElementById('categories').appendChild(li);
+      });
+    }
+    xhttp.open("GET", "http://localhost:8000/categories", true);
+    xhttp.send();
+  }
+</script>
+
 <div class="f_container">
-<<<<<<< HEAD
-  <form action="http://127.0.0.1:8000/books" method="PATCH">
-=======
-  <form action="action_page" method="post">
->>>>>>> 7ed11844368bf2635e59a18042d37e41b37baaf2
+  <form id="form" action="http://127.0.0.1:8000/books/" method="PATCH">
     <div class="row">
       <h1>Uprav knihu</h1>
       <div class="col-25">
@@ -74,7 +86,7 @@
         <label for ="fobal">Obal knihy</label>
       </div>
       <div class="col-75">
-        <input type="file" id="fobal" name="file_obr" >
+        <input type="file" id="fobal" name="imgPath" >
       </div>
   </div>
     <div class="row">
@@ -90,42 +102,39 @@
         <label for="fpocet_s">Počet strán</label>
       </div>
       <div class="col-75">
-        <input type="number" id="fpocet_s" name="pocet_stran" placeholder="počet strán...">
+        <input type="number" id="fpocet_s" name="pageCount" placeholder="počet strán...">
       </div>
       <div class="row">
         <div class="col-25">
           <label for="f_pdf">Súbor pdf</label>
         </div>
         <div class="col-75">
-          <input type="file" id="f_pdf" name="file_pdf" >
+          <input type="file" id="f_pdf" name="filePath" >
         </div>
     </div>
 
     <div class="row">
       <div class="col-25">
-        <label for="country">Kategória</label>
+        <label for="category">Kategória</label>
       </div>
       <div class="col-75">
-        <select id="category" name="kategoria">
-          <option value="pocitacova_grafika">Počítačová grafika</option>
-          <option value="operacne_systemy">Operačné systémy</option>
-          <option value="databazove_systemy">Databázové systémy</option>
-          <option value="pocitacova_analyza_dat">Počítačová analýza dát</option>
-          <option value="multimedia">Multimédiá</option>
+        <select id="category" name="category">
+          <option value="1">Počítačová grafika</option>
+          <option value="2">Operačné systémy</option>
+          <option value="3">Databázové systémy</option>
+          <option value="4">Počítačová analýza dát</option>
+          <option value="5">Multimédiá</option>
         </select>
       </div>
     </div>
     <div class="row">
-      <div class="col-25">
-        <label for="fdesc">Krátky popis</label>
-      </div>
       <div class="col-75">
         <textarea id="fdesc" name="popis" placeholder="..." style="height:50px"></textarea>
       </div>
     </div>
     <div class="row">
       <input type="hidden" name="operation" value="edit">
-      <input type="submit" value="Uprav"  onclick="alert('Kniha bola upravená ☺')">
+      <input type="submit" value="Uprav">
     </div>
   </form>
 </div>

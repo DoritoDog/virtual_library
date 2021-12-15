@@ -65,7 +65,7 @@
       books.forEach(book => {
         let column = document.createElement('div');
         column.classList = 'c_column';
-        column.innerHTML = '<div class="c_card"><div class="thumbnail"><a href="'+book['filePath']+'"><img  src="'+book['imgPath']+'" alt="Vektorová a bitmapová grafika" style="width:100%"></a></div><div class="c_container"><h6 class="txt">'+book['title']+'</h6><p class="txt">'+book['description']+'</p><p><input type="submit" class="button" value="Študuj"onclick="window.open(\''+book['filePath']+'\'); return true;"><button class="btn"><i class="fa fa-edit"></i></button></p></div></div>';
+        column.innerHTML = '<div class="c_card"><div class="thumbnail"><a href="'+book['filePath']+'"><img  src="'+book['imgPath']+'" alt="Vektorová a bitmapová grafika" style="width:100%"></a></div><div class="c_container"><h6 class="txt">'+book['title']+'</h6><p class="txt">'+book['description']+'</p><p><input type="submit" class="button" value="Študuj"onclick="window.open(\''+book['filePath']+'\'); return true;"><button class="btn"><a href="uprav.html"><i class="fa fa-edit"></i></button></p></div></div>';
         document.getElementById('row').appendChild(column);
       });
     }

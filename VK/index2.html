@@ -65,7 +65,7 @@
       books.forEach(book => {
         let column = document.createElement('div');
         column.classList = 'c_column';
-        column.innerHTML = '<div class="c_card"><div class="thumbnail"><a href="http:127.0.0.1:8000\\'+book['imgPath']+'"><img  src="http://127.0.0.1:8000\\'+book['imgPath']+'" alt="Vektorová a bitmapová grafika" style="width:100%"></a></div><div class="c_container"><h6 class="txt">'+book['title']+'</h6><p><input type="submit" class="button" value="Študuj"onclick="window.open(\'http://127.0.0.1:8000/'+book['filePath']+'\'); return true;"><button class="btn"><a href="uprav.html?bookId='+book['id']+'"><i class="fa fa-edit"></i></button></p></div></div>';
+        column.innerHTML = '<div class="c_card"><div class="thumbnail"><a href="http:127.0.0.1:8000\\'+book['imgPath']+'"><img  src="http://127.0.0.1:8000\\'+book['imgPath']+'" alt="Vektorová a bitmapová grafika" style="width:100%"></a></div><div class="c_container"><h6 class="txt">'+book['title']+'</h6><p></div><input type="submit" class="button" value="Študuj"onclick="window.open(\'http://127.0.0.1:8000/'+book['filePath']+'\'); return true;"><button class="btn"><a href="uprav.html?bookId='+book['id']+'"><i class="fa fa-edit"></i></button></p></div>';
         document.getElementById('row').appendChild(column);
       });
     }
@@ -85,7 +85,7 @@
       books.forEach(book => {
         let column = document.createElement('div');
         column.classList = 'c_column';
-        column.innerHTML = '<div class="c_card"><div class="thumbnail"><a href="http:127.0.0.1:8000\\'+book['imgPath']+'"><img  src="http://127.0.0.1:8000\\'+book['imgPath']+'" alt="Vektorová a bitmapová grafika" style="width:100%"></a></div><div class="c_container"><h6 class="txt">'+book['title']+'</h6><p><input type="submit" class="button" value="Študuj"onclick="window.open(\'http://127.0.0.1:8000/'+book['filePath']+'\'); return true;"><button class="btn"><a href="uprav.html?bookId='+book['id']+'"><i class="fa fa-edit"></i></button></p></div></div>';
+        column.innerHTML = '<div class="c_card"><div class="thumbnail"><a href="http:127.0.0.1:8000\\'+book['imgPath']+'"><img  src="http://127.0.0.1:8000\\'+book['imgPath']+'" alt="Vektorová a bitmapová grafika" style="width:100%"></a></div><div class="c_container"><h6 class="txt">'+book['title']+'</h6><p></div><input type="submit" class="button" value="Študuj"onclick="window.open(\'http://127.0.0.1:8000/'+book['filePath']+'\'); return true;"><button class="btn"><a href="uprav.html?bookId='+book['id']+'"><i class="fa fa-edit"></i></button></p></div>';
         document.getElementById('row').appendChild(column);
       });
     }

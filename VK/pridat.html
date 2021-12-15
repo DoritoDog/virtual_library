@@ -61,7 +61,7 @@
 
 <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 <div class="f_container">
-  <form action="http://127.0.0.1:8000/books" method="POST">
+  <form action="http://127.0.0.1:8000/books" method="POST" target="dummyframe">
 <div class="f_container">
   <form action="action_page.php" method="post">
     <div class="row">
@@ -127,7 +127,7 @@
     <div class="row">
       <input type="submit" value="Pridaj">
       <input type="hidden" name="operation" value="add">
-      <input type="submit" value="Pridaj">
+      <input type="submit" value="Pridaj" onclick="alert('Kniha bola pridaná 🙂')">
     </div>
   </form>
 </div>

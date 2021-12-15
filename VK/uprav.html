@@ -70,8 +70,9 @@ function createCategoryLinks() {
   }
 </script>
 
+<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 <div class="f_container">
-  <form id="form" action="http://127.0.0.1:8000/books/" method="PATCH">
+  <form id="form" action="http://127.0.0.1:8000/books/" method="POST" target="dummytarget">
     <div class="row">
       <h1>Uprav knihu</h1>
       <div class="col-25">
@@ -134,7 +135,7 @@ function createCategoryLinks() {
     </div>
     <div class="row">
       <input type="hidden" name="operation" value="edit">
-      <input type="submit" value="Uprav">
+      <input type="submit" value="Uprav" onclick="alert('Kniha bola úpravená 🙂')">
     </div>
   </form>
 </div>

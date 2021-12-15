@@ -142,19 +142,17 @@ class BookController extends AbstractController
     {
         $book = $this->bookRepository->find($bookId);
 
-        if ($request->request->has('title')) {
+        if ($request->request->has('title') && $request->request->get('title') !== '') {
             $book->setTitle($request->request->get('title'));
+            $book->setSlug($request->request->get('title'));
         }
-        if ($request->request->has('slug')) {
-            $book->setSlug($request->request->get('slug'));
-        }
-        if ($request->request->has('isbn')) {
+        if ($request->request->has('isbn') && $request->request->get('isbn') !== '') {
             $book->setIsbn($request->request->get('isbn'));
         }
-        if ($request->request->has('filePath')) {
-            $book->setFilePath($request->request->get('filePath'));
+        if ($request->request->has('category') && $request->request->get('category') !== '') {
+            $book->setCategory($this->categoryRepository->find($request->request->get('category')));
         }
-        if ($request->request->has('pageCount')) {
+        if ($request->request->has('pageCount') && $request->request->get('pageCount') !== '') {
             $book->setPageCount($request->request->get('pageCount'));
         }
 

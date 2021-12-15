@@ -122,13 +122,27 @@
     </div>
   
     <div class="row">
-      <input type="hidden" name="operation" value="add">
-      <input type="submit" value="Pridaj" onclick="alert('Kniha bola pridaná 🙂')">
+      <button onclick="uploadFile()">Pridaj</button>
     </div>
   </form>
 </div>
 
-
+<script>
+async function uploadFile() {
+    let formData = new FormData();
+    formData.append("filePath", document.getElementById('f_pdf').files[0]);
+    formData.append("imgPath", document.getElementById('fobal').files[0]);
+    formData.append("title", document.getElementById('ftitle').value);
+    formData.append("isbn", document.getElementById('fisbn').value);
+    formData.append("pageCount", document.getElementById('fpocet_s').value);
+    formData.append("category", document.getElementById('category').value);
+    await fetch('http://127.0.0.1:8000/books', {
+      method: "POST", 
+      body: formData
+    }).catch(err => console.log(err));
+    alert('Kniha bola pridaná.');
+}
+</script>
 
 
 

@@ -13,6 +13,7 @@
 
 </head>
 <body>
+
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="index.html">
@@ -22,45 +23,39 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="mynavbar">
-      <ul class="navbar-nav me-auto" id="categories">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index2.html">Počítačová grafika</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index3.html">Operačné systémy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index4.html">Počítačová analýza dát</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index5.html">Databázové systémy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index6.html">Multimédiá</a>
+        </li>
       </ul>
       <ul class="navbar-nav justify-content-end">
         <li class="nav-item">
           <a class="nav-link" href="pridat.html">Pridať knihu</a>
         </li>
       </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="text" placeholder="zadaj názov knihy...">
+        <button class="btn btn-primary" type="button">Hľadať</button>
+      </form>
     </div>
   </div>
 </nav>
 <br>
 
-<script>
-  function createCategoryLinks() {
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
-      let categories = JSON.parse(this.responseText);
-      document.getElementById('categories').innerHTML = '';
-      categories.forEach(category => {
-        let li = document.createElement('li');
-        li.classList = 'nav-item';
-        let a = document.createElement('a');
-        a.classList = 'nav-link';
-        a.innerHTML = category['name'];
-        a.href = 'index2.html?category=' + category.slug;
-        li.appendChild(a);
-        document.getElementById('categories').appendChild(li);
-      });
-    }
-    xhttp.open("GET", "http://localhost:8000/categories", true);
-    xhttp.send();
-  }
-
-  createCategoryLinks();
-</script>
-<br>
-
 <div class="f_container">
-  <form action="">
+  <form action="action_page" method="post">
     <div class="row">
       <h1>Uprav knihu</h1>
       <div class="col-25">
@@ -125,6 +120,7 @@
       </div>
     </div>
     <div class="row">
+      <input type="hidden" name="operation" value="edit">
       <input type="submit" value="Uprav"  onclick="alert('Kniha bola upravená ☺')">
     </div>
   </form>

@@ -70,9 +70,8 @@ function createCategoryLinks() {
   }
 </script>
 
-<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 <div class="f_container">
-  <form id="form" action="http://127.0.0.1:8000/books/" method="POST" target="dummytarget">
+  <form id="form" action="http://127.0.0.1:8000/books/" method="POST">
     <div class="row">
       <h1>Uprav knihu</h1>
       <div class="col-25">
@@ -119,7 +118,7 @@ function createCategoryLinks() {
         <label for="category">Kategória</label>
       </div>
       <div class="col-75">
-        <select id="category" name="category">
+        <select id="category" name="category" value="">
           <option value="1">Počítačová grafika</option>
           <option value="2">Operačné systémy</option>
           <option value="3">Databázové systémy</option>
@@ -131,17 +130,30 @@ function createCategoryLinks() {
     </div>
 
     <div class="row">
-      <input type="hidden" name="operation" value="edit">
-      <input type="submit" value="Uprav" onclick="alert('Kniha bola úpravená 🙂')">
+      <button onclick="sendForm()">Pridaj</button>
     </div>
   </form>
 </div>
 
+<script>
+async function sendForm() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    let url = "http://127.0.0.1:8000/books/" + urlParams.get('bookId');
 
-
-
-
-
+    let formData = new FormData();
+    formData.append("filePath", document.getElementById('f_pdf').files[0]);
+    formData.append("imgPath", document.getElementById('fobal').files[0]);
+    formData.append("title", document.getElementById('ftitle').value);
+    formData.append("isbn", document.getElementById('fisbn').value);
+    formData.append("pageCount", document.getElementById('fpocet_s').value);
+    formData.append("category", document.getElementById('category').value);
+    await fetch(url, {
+      method: "POST", 
+      body: formData
+    }).catch(err => console.log(err));
+}
+</script>
 
 </body>
 </html>

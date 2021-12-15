@@ -122,13 +122,13 @@
     </div>
   
     <div class="row">
-      <button onclick="uploadFile()">Pridaj</button>
+      <button onclick="sendForm()">Pridaj</button>
     </div>
   </form>
 </div>
 
 <script>
-async function uploadFile() {
+async function sendForm() {
     let formData = new FormData();
     formData.append("filePath", document.getElementById('f_pdf').files[0]);
     formData.append("imgPath", document.getElementById('fobal').files[0]);

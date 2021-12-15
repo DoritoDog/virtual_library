@@ -155,6 +155,36 @@ class BookController extends AbstractController
         if ($request->request->has('pageCount') && $request->request->get('pageCount') !== '') {
             $book->setPageCount($request->request->get('pageCount'));
         }
+        
+        if ($request->files->has('filePath') && $request->files->get('filePath') !== '') {
+            $pdf = $request->files->get('filePath');
+            if ($pdf) {
+                $originalFilename = pathinfo($pdf->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $book->slugify($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$pdf->guessExtension();
+                try {
+                    $pdf->move($book->getCategory()->getDirectory().'/' .'pdf', $newFilename);
+                } catch (FileException $e) {
+                    var_dump($e->getMessage());
+                }
+                $book->setFilePath($book->getCategory()->getDirectory().'/'.'pdf'.'/' .$newFilename);
+            }
+        }
+        
+        if ($request->files->has('imgPath') && $request->files->get('imgPath') !== '') {
+            $img = $request->files->get('imgPath');
+            if ($img) {
+                $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $book->slugify($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$img->guessExtension();
+                try {
+                    $img->move($book->getCategory()->getDirectory().'/' .'obrazky', $newFilename);
+                } catch (FileException $e) {
+                    var_dump($e->getMessage());
+                }
+                $book->setImgPath($book->getCategory()->getDirectory().'/' .'obrazky'.'/' .$newFilename);
+            }
+        }
 
         $this->getDoctrine()->getManager()->flush();
 

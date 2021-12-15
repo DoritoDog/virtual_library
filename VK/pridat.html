@@ -59,8 +59,9 @@
   createCategoryLinks();
 </script>
 
+<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 <div class="f_container">
-  <form action="">
+  <form action="http://127.0.0.1:8000/books" method="POST">
     <div class="row">
       <h1>Pridaj svoju knihu</h1>
       <div class="col-25">
@@ -75,7 +76,7 @@
         <label for ="fobal">Obal knihy</label>
       </div>
       <div class="col-75">
-        <input type="file" id="fobal" name="file_obr" >
+        <input type="file" id="fobal" name="imgPath" >
       </div>
   </div>
     <div class="row">
@@ -91,28 +92,28 @@
         <label for="fpocet_s">Počet strán</label>
       </div>
       <div class="col-75">
-        <input type="number" id="fpocet_s" name="pocet_stran" placeholder="počet strán...">
+        <input type="number" id="fpocet_s" name="pageCount" placeholder="počet strán...">
       </div>
       <div class="row">
         <div class="col-25">
           <label for="f_pdf">Súbor pdf</label>
         </div>
         <div class="col-75">
-          <input type="file" id="f_pdf" name="file_pdf" >
+          <input type="file" id="f_pdf" name="filePath" >
         </div>
     </div>
 
     <div class="row">
       <div class="col-25">
-        <label for="country">Kategória</label>
+        <label for="category">Kategória</label>
       </div>
       <div class="col-75">
-        <select id="category" name="kategoria">
-          <option value="pocitacova_grafika">Počítačová grafika</option>
-          <option value="operacne_systemy">Operačné systémy</option>
-          <option value="databazove_systemy">Databázové systémy</option>
-          <option value="pocitacova_analyza_dat">Počítačová analýza dát</option>
-          <option value="multimedia">Multimédiá</option>
+        <select id="category" name="category">
+          <option value="1">Počítačová grafika</option>
+          <option value="2">Operačné systémy</option>
+          <option value="3">Databázové systémy</option>
+          <option value="4">Počítačová analýza dát</option>
+          <option value="5">Multimédiá</option>
         </select>
       </div>
     </div>
@@ -125,7 +126,7 @@
       </div>
     </div>
     <div class="row">
-      <input type="submit" value="Pridaj"  onclick="alert('Kniha bola pridaná ☺')">
+      <input type="submit" value="Pridaj">
     </div>
   </form>
 </div>

@@ -99,7 +99,34 @@ class BookController extends AbstractController
         $book->setSlug($request->request->get('title'));
         $book->setIsbn($request->request->get('isbn'));
         $book->setPageCount($request->request->get('pageCount'));
-        $book->setFilePath($request->request->get('filePath'));
+        $category = $this->categoryRepository->find($request->request->get('category'));
+        $book->setCategory($category);
+        
+        $pdf = $request->files->get('filePath');
+        if ($pdf) {
+            $originalFilename = pathinfo($pdf->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $book->slugify($originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$pdf->guessExtension();
+            try {
+                $pdf->move($category->getDirectory().'/' .'pdf', $newFilename);
+            } catch (FileException $e) {
+                var_dump($e->getMessage());
+            }
+            $book->setFilePath($category->getDirectory().'/'.'pdf'.'/' .$newFilename);
+        }
+        
+        $img = $request->files->get('imgPath');
+        if ($img) {
+            $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $book->slugify($originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$img->guessExtension();
+            try {
+                $img->move($category->getDirectory().'/' .'obrazky', $newFilename);
+            } catch (FileException $e) {
+                var_dump($e->getMessage());
+            }
+            $book->setImgPath($category->getDirectory().'/' .'obrazky'.'/' .$newFilename);
+        }
 
         $this->getDoctrine()->getManager()->persist($book);
         $this->getDoctrine()->getManager()->flush();

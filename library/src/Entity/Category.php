@@ -27,6 +27,11 @@ class Category
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $directory;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class Category
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getDirectory(): ?string
+    {
+        return $this->directory;
+    }
+
+    public function setDirectory(string $directory): self
+    {
+        $this->directory = $directory;
 
         return $this;
     }

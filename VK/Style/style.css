@@ -1,6 +1,7 @@
 
 .b_body  {
-  background-image: url("back.jpeg");
+
+  background-color:rgb(255, 255,255);
 }
 
 html {
@@ -26,8 +27,9 @@ html {
 }
 
 .c_card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  background-color: white;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2);
+  background-color:rgb(230, 230, 230);
+
 }
 
 .c_container {
@@ -50,12 +52,12 @@ html {
   display: inline-block;
   padding: 8px;
   color: white;
-  background-color: #000;
+  background-color:  rgb(0, 0, 0);
   text-align: center;
   cursor: pointer;
   width: 50%;
 }
 
 .button:hover {
-  background-color: #555;
+  background-color: rgb(37, 29, 201);
 }
